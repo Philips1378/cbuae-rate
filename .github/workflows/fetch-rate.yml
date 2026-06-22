@@ -1,0 +1,31 @@
+name: Fetch CBUAE EUR rate
+
+on:
+  schedule:
+    - cron: '30 14 * * 1-5'      # 14:30 UTC = 18:30 Dubai, Mon–Fri (after CBUAE publishes)
+  workflow_dispatch:             # lets you run it manually from the Actions tab
+
+permissions:
+  contents: write                # allows the job to commit rate.json back
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npm run scrape
+
+      - name: Commit rate.json
+        run: |
+          git config user.name  "github-actions"
+          git config user.email "actions@github.com"
+          git add public/rate.json
+          git commit -m "Update EUR rate $(date -u +%Y-%m-%d)" || echo "no change"
+          git push
