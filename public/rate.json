@@ -3,8 +3,8 @@
   "base": "AED",
   "currency": "EUR",
   "quote": "AED per 1 EUR",
-  "rate": 4.0388,
-  "rateRaw": 4.038821,
+  "rate": 4.037,
+  "rateRaw": 4.037045,
   "source": "https://www.centralbank.ae/en/forex-eibor/exchange-rates/",
-  "fetchedAt": "2026-11-19T22:19:28.882Z"
+  "fetchedAt": "2026-11-20T21:56:55.870Z"
 }
